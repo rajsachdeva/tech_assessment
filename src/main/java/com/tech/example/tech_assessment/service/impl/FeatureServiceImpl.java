@@ -67,8 +67,6 @@ public class FeatureServiceImpl implements FeatureService {
 	@Override
 	public Feature updateFeature(Feature feature, Integer id) throws ServiceException {
 		LOGGER.info("Update Feature...");
-		Feature featureUpdate = null;
-		
 		Feature updateFeature = featureRepository.findById(id).orElseThrow(() -> {
 			String errorMessage = String.format("Feature doesn't exist : %s in database.", id);
 			LOGGER.info("Get Feature by email and featureName...");
@@ -76,7 +74,7 @@ public class FeatureServiceImpl implements FeatureService {
 		});
 		try {
 			feature.setId(updateFeature.getId());
-			featureUpdate = featureRepository.save(feature);
+			Feature featureUpdate = featureRepository.save(feature);
 			LOGGER.debug("Updating Feature by id {}.", id);
 			return featureUpdate;
 		} catch (Exception exception) {
